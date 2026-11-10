@@ -4,74 +4,71 @@ import InputForm from "./Chef/Input.jsx"
 import Meals from "./Chef/MealsPlan.jsx"
 import About from "./Chef/About.jsx"
 import Learn from "./Chef/Learn.jsx"
-import { useState, useRef, useEffect} from "react"
-export default function App(){
-    // For user input
-    const[input, setInput] = useState("")
-    // For storing recipe
-    const [recipe, setRecipe] = useState("")
-    // For scrolling 
-    const recipeSection = useRef(null);
-    // For storing user inputs
-    const[ingredientList, setIngredientList] = useState([])
-    const[currentPage, setCurrentPage] = useState("discover")
+import { useState, useRef, useEffect } from "react"
 
-    useEffect(()=>{
-      if(recipe){
-        recipeSection.current.scrollIntoView({behaviour:"smooth"})
-      }
-    },[recipe])
+export default function App() {
+    const [input, setInput] = useState("")
+    const [recipe, setRecipe] = useState("")
+    const recipeSection = useRef(null)
+    const [ingredientList, setIngredientList] = useState([])
+    const [currentPage, setCurrentPage] = useState("discover")
+
+    useEffect(() => {
+        if (recipe && recipeSection.current) {
+            recipeSection.current.scrollIntoView({ behavior: "smooth" })
+        }
+    }, [recipe])
     
-    function handleInput(e){
+    function handleInput(e) {
         setInput(e.target.value) 
     }
 
-    function storeInput(){
-        setIngredientList(
-            function(prevList){
-                return [...prevList,input]
-            }
-        )
+    function storeInput(e) {
+        if (e && e.preventDefault) e.preventDefault()
+        if (!input.trim()) return
+        
+        setIngredientList((prevList) => [...prevList, input.trim()])
         setInput("")
     }
 
-    function render(){
-      if(currentPage === "discover"){
-        return <Marketing setCurrentPage={setCurrentPage}/>
-      }
-      else if(currentPage === "recipe"){
-        return <InputForm 
-            setCurrentPage={setCurrentPage}
-            storeInput={storeInput}
-            handleInput={handleInput}
-            ingredientList={ingredientList}
-          />
-      }
-      else if(currentPage === "meal_plans"){
-        return <Meals
-            recipe = {recipe}
-            setRecipe={setRecipe}
-            ingredientList={ingredientList}
-            recipeSection={recipeSection}
-        />
-      }
-      else if(currentPage === "about"){
-        return <About/>
-      }
-      else if(currentPage === "learn"){
-        return <Learn/>
-      }
+    function render() {
+        if (currentPage === "discover") {
+            return <Marketing setCurrentPage={setCurrentPage} />
+        } else if (currentPage === "recipe") {
+            return (
+                <InputForm 
+                    setCurrentPage={setCurrentPage}
+                    storeInput={storeInput}
+                    input={input}
+                    handleInput={handleInput}
+                    ingredientList={ingredientList}
+                />
+            )
+        } else if (currentPage === "meal_plans") {
+            return (
+                <Meals
+                    recipe={recipe}
+                    setRecipe={setRecipe}
+                    ingredientList={ingredientList}
+                    recipeSection={recipeSection}
+                />
+            )
+        } else if (currentPage === "about") {
+            return <About />
+        } else if (currentPage === "learn") {
+            return <Learn />
+        }
     }
-  return(
-      <>
-          <Header 
-            setCurrentPage= {setCurrentPage}
-            currentPage = {currentPage}
-          />
-          {
-            render()
-          }
-         
-      </>
-  )
+
+    return (
+        <div>
+            <Header 
+                setCurrentPage={setCurrentPage}
+                currentPage={currentPage}
+            />
+            <main>
+                {render()}
+            </main>
+        </div>
+    )
 }

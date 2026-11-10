@@ -15,12 +15,29 @@ export default function About() {
       </div>
 
       {/* Main Mission Card */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm mb-10">
+      <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm mb-8">
         <p className="text-base md:text-lg text-gray-700 leading-relaxed">
           Whether you're looking for quick meal ideas using ingredients already in your fridge 
           or searching for structured step-by-step recipes, Recipe Finder transforms raw culinary 
           inputs into formatted, easy-to-follow cooking guides.
         </p>
+      </div>
+
+      {/* How It Works Section */}
+      <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-6 md:p-8 shadow-sm mb-10">
+        <h2 className="text-2xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+          🍳 How It Works
+        </h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          Simplicity is at the heart of the app. Just type in the ingredients you have available, 
+          and the AI instantly generates custom, tailored recipes for you:
+        </p>
+        <div className="bg-white border border-yellow-100 rounded-xl p-4 shadow-xs">
+          <p className="text-gray-800 font-semibold flex items-center gap-2 text-base">
+            <span className="text-yellow-600 text-xl font-bold">✨ Tip:</span> 
+            Entering multiple ingredients (ideally 3 or more) gives the AI more flavor combinations to craft delicious, detailed recipes!
+          </p>
+        </div>
       </div>
 
       {/* Tech Stack Section */}
@@ -31,7 +48,7 @@ export default function About() {
         
         <p className="text-gray-600 mb-6">
           This application was engineered from the ground up prioritizing speed, 
-          responsive design, and a smooth user experience:
+          responsive design, and a smooth user experience across mobile and desktop:
         </p>
 
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
