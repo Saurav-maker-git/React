@@ -45,22 +45,11 @@ export default function App() {
     });
   }
 
-  // Imperative Method (Creating an array to hold the 10 dice numbers)
-  // function generateNewDice(){
-  //   let newDice = []
-  //   for(let i = 0 ; i < 10 ; i++){
-  //     let randomNumber = Math.floor(Math.random()*6) + 1;
-  //     newDice.push(randomNumber)
-  //   }
-  //   return newDice;
-  // }
-
   // Declarative Method (Creating an array to hold the 10 dice numbers)
   function generateNewDice() {
     return (
       new Array(10)
         .fill(0)
-        // .map(()=> Math.floor(Math.random() * 6) + 1) // below converting this array into Object, so that a dice could be freeze
         .map(() => ({
           value: Math.floor(Math.random() * 6) + 1,
           isHeld: false,
@@ -69,20 +58,15 @@ export default function App() {
     );
   }
 
-  // // For starting a new game
-  // function newGame(){
-  //   setDice(()=> generateNewDice())
-  // }
-
   return (
-    <div className="flex flex-col bg-gray-50 rounded-md mt-10 justify-center items-center gap-2 px-3 py-5">
+    <div className="flex flex-col bg-gray-50 rounded-md mt-6 sm:mt-10 justify-center items-center gap-2 px-3 py-5 w-full max-w-md mx-auto sm:shadow-lg sm:border sm:border-gray-200">
       {gameWon && <Confetti />}
       <h1 className="font-bold text-[30px] text-gray-950">Tenzie</h1>
-      <p className="text-gray-950 text-m text-wrap self-center">
+      <p className="text-gray-950 text-sm sm:text-base text-center text-wrap self-center px-4">
         Roll until all dice are same. Click each dice to freeze at it's current
         value between rolls
       </p>
-      <div className="grid grid-cols-5 gap-4 bg-gray-50 p-5 rounded-md mt-2 h-[200px]">
+      <div className="grid grid-cols-5 gap-3 sm:gap-4 bg-gray-50 p-3 sm:p-5 rounded-md mt-2 w-full justify-items-center">
         {dice.map(function (diceElementsObject) {
           return (
             <Dice
@@ -100,7 +84,7 @@ export default function App() {
         ref={buttonRef}
         type="button"
         onClick={rollDice}
-        className="self-center shadow-2xl px-5 py-1.5 rounded-md bg-indigo-400 text-black font-bold text-lg cursor-pointer"
+        className="self-center shadow-2xl px-6 py-2 rounded-md bg-indigo-400 hover:bg-indigo-500 text-black font-bold text-lg cursor-pointer transition w-full sm:w-auto mt-2"
       >
         {gameWon ? "New game" : "Roll dice"}
       </button>
